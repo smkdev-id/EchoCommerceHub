@@ -1,3 +1,3 @@
-module promotion_tracking_dashboard
+module promotion_tracking_api
 
-go 1.21.6
+go 1.18
