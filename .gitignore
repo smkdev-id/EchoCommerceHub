@@ -16,6 +16,12 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+services/promotion_DB.go
+services/promotion.go
+third_party/notion.go
+
+# Environment Variables
+.env/
 
 # Go workspace file
 go.work
