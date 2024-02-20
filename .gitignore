@@ -18,6 +18,7 @@
 # vendor/
 services/promotion_DB.go
 services/promotion.go
+services/.promotion.go.swp
 third_party/notion.go
 
 # Environment Variables
