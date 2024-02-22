@@ -20,7 +20,7 @@ func CreatePromotionData(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "Invalid Promotion Data")
 	}
 
-	// Check Duplicate Data interatively
+	// TODO: Check Duplicate Data interatively
 	for _, p := range promotions {
 		if p.PromotionID == promo.PromotionID && ((p.StartDate.Equal(promo.StartDate) || p.StartDate.Before(promo.StartDate)) && (p.EndDate.Equal(promo.EndDate) || p.EndDate.After(promo.EndDate))) {
 			return echo.NewHTTPError(http.StatusConflict, "Duplicate promotion found")
@@ -30,7 +30,7 @@ func CreatePromotionData(c echo.Context) error {
 	// Append Data to Database
 	promotions = append(promotions, promo)
 
-	// Sort the data based on start_date
+	// TODO: Sort the data based on start_date ASC
 	sort.Slice(promotions, func(i, j int) bool {
 		return promotions[i].StartDate.Before(promotions[j].StartDate)
 	})
@@ -50,7 +50,7 @@ func GetPromotionByID(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "Invalid promotion ID")
 	}
 
-	// Iterate over the promotions slice to find the desired promotion
+	// TODO: Iterate over the promotions slice to find the desired promotion
 	for _, promo := range promotions {
 		if int(promo.PromotionID) == promotion_id {
 			return c.JSON(http.StatusOK, promo)

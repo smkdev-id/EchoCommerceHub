@@ -5,6 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
+	"github.com/smkdev-id/promotion_tracking_dashboard/configs"
 	"github.com/smkdev-id/promotion_tracking_dashboard/services"
 )
 
@@ -14,6 +15,8 @@ func HelloServer(c echo.Context) error {
 
 func main() {
 	e := echo.New()
+
+	configs.InitDatabase()
 
 	e.GET("/", HelloServer)
 	e.GET("/getpromotiondata", services.GetAllPromotionData)

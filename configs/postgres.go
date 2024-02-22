@@ -5,8 +5,11 @@ import (
 	"log"
 
 	"github.com/spf13/viper"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
+
+var PromotionData *gorm.DB
 
 func InitDatabase() *gorm.DB {
 	dbUser := viper.GetString("DATABASE.USER")
@@ -15,11 +18,11 @@ func InitDatabase() *gorm.DB {
 	dbPort := viper.GetString("DATABASE.PORT")
 	dbName := viper.GetString("DATABASE.NAME")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		dbUser, dbPass, dbHost, dbPort, dbName)
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
+		dbHost, dbUser, dbPass, dbName, dbPort)
 
 	var errDB error
-	DB, errDB := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	DB, errDB := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if errDB != nil {
 		log.Fatal("Failed to Connect Database")
 	}
