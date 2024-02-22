@@ -16,10 +16,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-services/promotion_DB.go
-services/promotion.go
-services/.promotion.go.swp
-third_party/notion.go
+.github/
 
 # Environment Variables
 .env/
