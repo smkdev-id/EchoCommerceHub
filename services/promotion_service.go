@@ -1,31 +1,19 @@
-package main
+package services
 
 import (
 	"net/http"
+	"sort"
 	"strconv"
-	"time"
 
 	"github.com/labstack/echo/v4"
+	"github.com/smkdev-id/promotion_tracking_dashboard/models"
 )
 
-type Promotion struct {
-	PromotionID   uint      `json:"promotion_id"`
-	Name          string    `json:"name"`
-	DiscountType  string    `json:"discount_type"`
-	DiscountValue float64   `json:"discount_value"`
-	StartDate     time.Time `json:"start_date"`
-	EndDate       time.Time `json:"end_date"`
-}
-
 // Our Database
-var promotions []Promotion
-
-func HelloServer(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
-}
+var promotions []models.Promotion
 
 func CreatePromotionData(c echo.Context) error {
-	var promo Promotion
+	var promo models.Promotion
 
 	// Check Invalid Data based on Promotion Struct
 	if err := c.Bind(&promo); err != nil {
@@ -41,6 +29,11 @@ func CreatePromotionData(c echo.Context) error {
 
 	// Append Data to Database
 	promotions = append(promotions, promo)
+
+	// Sort the data based on start_date
+	sort.Slice(promotions, func(i, j int) bool {
+		return promotions[i].StartDate.Before(promotions[j].StartDate)
+	})
 
 	// Return Data already inputted/created
 	return c.JSON(http.StatusCreated, promo)
@@ -130,16 +123,4 @@ func DeletePromotionByID(c echo.Context) error {
 	promotions = append(promotions[:deletedIndex], promotions[deletedIndex+1:]...)
 
 	return c.JSON(http.StatusNoContent, deletedPromotion)
-}
-
-func main() {
-	e := echo.New()
-	e.GET("/", HelloServer)
-	e.GET("/getpromotiondata", GetAllPromotionData)
-	e.POST("/createpromotiondata", CreatePromotionData)
-	e.GET("/getpromotiondata/:promotion_id", GetPromotionByID)
-	e.PUT("/updatepromotiondata/:promotion_id", UpdatePromotionByID)
-	e.DELETE("/deletepromotiondata/:promotion_id", DeletePromotionByID)
-
-	e.Start(":8080")
 }
