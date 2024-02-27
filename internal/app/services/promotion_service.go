@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo/v4"
-	"github.com/smkdev-id/promotion_tracking_dashboard/models"
+	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
 )
 
 // Our Database

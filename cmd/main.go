@@ -1,29 +1,26 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/labstack/echo/v4"
-
-	"github.com/smkdev-id/promotion_tracking_dashboard/configs"
-	"github.com/smkdev-id/promotion_tracking_dashboard/services"
+	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/repositories"
+	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/services"
+	"github.com/smkdev-id/promotion_tracking_dashboard/internal/configs"
+	"github.com/smkdev-id/promotion_tracking_dashboard/internal/delivery"
 )
 
-func HelloServer(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
-}
-
 func main() {
+
+	configs.LoadViperEnv()
+
+	db := configs.InitDatabase()
+
 	e := echo.New()
 
-	configs.InitDatabase()
+	PromotionRepo := repositories.NewPromotionRepository(db)
 
-	e.GET("/", HelloServer)
-	e.GET("/getpromotiondata", services.GetAllPromotionData)
-	e.POST("/createpromotiondata", services.CreatePromotionData)
-	e.GET("/getpromotiondata/:promotion_id", services.GetPromotionByID)
-	e.PUT("/updatepromotiondata/:promotion_id", services.UpdatePromotionByID)
-	e.DELETE("/deletepromotiondata/:promotion_id", services.DeletePromotionByID)
+	PromoService := services.NewPromotionService(PromotionRepo)
+
+	delivery.PromotionRoute(e, PromoService)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

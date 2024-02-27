@@ -5,14 +5,11 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo/v4"
+	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
 	"gorm.io/gorm"
-
-	"github.com/smkdev-id/promotion_tracking_dashboard/models"
 )
 
-var db *gorm.DB
-
-func PSQLCreatePromotionData(c echo.Context) error {
+func TempPSQLCreatePromotionData(c echo.Context) error {
 	var promo models.Promotion
 
 	if err := c.Bind(&promo); err != nil {
@@ -30,12 +27,12 @@ func PSQLCreatePromotionData(c echo.Context) error {
 	return c.JSON(http.StatusCreated, promo)
 }
 
-func PSQLGetAllPromotionData(c echo.Context) error {
-	var promotions models.Promotion
+func TempPSQLGetAllPromotionData(c echo.Context) error {
+	var promotions []models.Promotion
 
 	// Find all promotions from the database
-	if err := db.Find(&promotions).Error; err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to retrieve promotions")
+	if err := db.Debug().Find(&promotions).Error; err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Failed to retrieve promotions"+err.Error())
 	}
 
 	// Close the database connection (optional, preferred for larger applications)
@@ -46,7 +43,7 @@ func PSQLGetAllPromotionData(c echo.Context) error {
 
 }
 
-func PSQLGetPromotionByID(c echo.Context) error {
+func TempPSQLGetPromotionByID(c echo.Context) error {
 	promotion_id, err := strconv.Atoi(c.Param("promotion_id"))
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "Invalid promotion ID")
@@ -62,7 +59,7 @@ func PSQLGetPromotionByID(c echo.Context) error {
 	return c.JSON(http.StatusOK, promo)
 }
 
-func PSQLUpdatePromotionByID(c echo.Context) error {
+func TempPSQLUpdatePromotionByID(c echo.Context) error {
 	promotion_id, err := strconv.Atoi(c.Param("promotion_id"))
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "Invalid promotion ID")
@@ -91,7 +88,7 @@ func PSQLUpdatePromotionByID(c echo.Context) error {
 	return c.JSON(http.StatusOK, promo)
 }
 
-func PSQLDeletePromotionByID(c echo.Context) error {
+func TempPSQLDeletePromotionByID(c echo.Context) error {
 	promotion_id, err := strconv.Atoi(c.Param("promotion_id"))
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "Invalid promotion ID")
