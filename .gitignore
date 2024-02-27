@@ -19,7 +19,7 @@
 .github/
 
 # Environment Variables
-.env/
+env.yaml
 
 # Go workspace file
 go.work
