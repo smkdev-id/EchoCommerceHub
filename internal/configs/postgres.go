@@ -8,16 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-func LoadViperEnv() {
-	viper.AddConfigPath("/")
-	viper.SetConfigFile("env.yaml")
-	viper.AutomaticEnv()
-
-	if EnvException := viper.ReadInConfig(); EnvException != nil {
-		panic(EnvException)
-	}
-}
-
 func InitDatabase() *gorm.DB {
 	dbUser := viper.GetString("DATABASE.USER")
 	dbPass := viper.GetString("DATABASE.PASS")

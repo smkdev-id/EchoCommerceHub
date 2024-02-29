@@ -9,6 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var db *gorm.DB
+
 func TempPSQLCreatePromotionData(c echo.Context) error {
 	var promo models.Promotion
 
@@ -17,7 +19,7 @@ func TempPSQLCreatePromotionData(c echo.Context) error {
 	}
 
 	// Duplicate check (assuming ProductID and start/end date are unique)
-	if result := db.Where("promotion_id = ? AND start_date <= ? AND end_date >= ?", promo.PromotionID, promo.StartDate, promo.EndDate).First(&models.Promotion{}); result.Error == nil {
+	if result := db.Where("promotion_id = ? AND start_date <= ? AND end_date >= ?", promo.PromotionID, promo.PromotionStartDate, promo.PromotionEndDate).First(&models.Promotion{}); result.Error == nil {
 		return echo.NewHTTPError(http.StatusConflict, "Duplicate promotion found")
 	}
 
@@ -78,7 +80,7 @@ func TempPSQLUpdatePromotionByID(c echo.Context) error {
 	}
 
 	// Duplicate check (excluding current ID)
-	if result := db.Where("promotion_id = ? AND start_date <= ? AND end_date >= ? AND id != ?", promo.PromotionID, promo.StartDate, promo.EndDate, promo.PromotionID).First(&models.Promotion{}); result.Error == nil {
+	if result := db.Where("promotion_id = ? AND start_date <= ? AND end_date >= ? AND id != ?", promo.PromotionID, promo.PromotionStartDate, promo.PromotionEndDate, promo.PromotionID).First(&models.Promotion{}); result.Error == nil {
 		return echo.NewHTTPError(http.StatusConflict, "Duplicate promotion found")
 	}
 

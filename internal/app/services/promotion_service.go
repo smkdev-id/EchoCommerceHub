@@ -22,7 +22,7 @@ func CreatePromotionData(c echo.Context) error {
 
 	// TODO: Check Duplicate Data interatively
 	for _, p := range promotions {
-		if p.PromotionID == promo.PromotionID && ((p.StartDate.Equal(promo.StartDate) || p.StartDate.Before(promo.StartDate)) && (p.EndDate.Equal(promo.EndDate) || p.EndDate.After(promo.EndDate))) {
+		if p.ID == promo.ID && ((p.PromotionStartDate.Equal(promo.PromotionStartDate) || p.PromotionStartDate.Before(promo.PromotionStartDate)) && (p.PromotionEndDate.Equal(promo.PromotionEndDate) || p.PromotionEndDate.After(promo.PromotionEndDate))) {
 			return echo.NewHTTPError(http.StatusConflict, "Duplicate promotion found")
 		}
 	}
@@ -32,7 +32,7 @@ func CreatePromotionData(c echo.Context) error {
 
 	// TODO: Sort the data based on start_date ASC
 	sort.Slice(promotions, func(i, j int) bool {
-		return promotions[i].StartDate.Before(promotions[j].StartDate)
+		return promotions[i].PromotionStartDate.Before(promotions[j].PromotionStartDate)
 	})
 
 	// Return Data already inputted/created
@@ -52,7 +52,7 @@ func GetPromotionByID(c echo.Context) error {
 
 	// TODO: Iterate over the promotions slice to find the desired promotion
 	for _, promo := range promotions {
-		if int(promo.PromotionID) == promotion_id {
+		if int(promo.ID) == promotion_id {
 			return c.JSON(http.StatusOK, promo)
 		}
 	}
@@ -70,7 +70,7 @@ func UpdatePromotionByID(c echo.Context) error {
 	// Find the index of the promotion in the promotions slice
 	index := -1
 	for i, promo := range promotions {
-		if int(promo.PromotionID) == promotion_id {
+		if int(promo.ID) == promotion_id {
 			index = i
 			break
 		}
@@ -90,7 +90,7 @@ func UpdatePromotionByID(c echo.Context) error {
 
 	// Duplicate check (excluding current ID)
 	for _, p := range promotions {
-		if p.PromotionID == promo.PromotionID && p.PromotionID != promo.PromotionID && ((p.StartDate.Before(promo.EndDate) || p.StartDate.Equal(promo.EndDate)) && (p.EndDate.After(promo.StartDate) || p.EndDate.Equal(promo.StartDate))) {
+		if p.ID == promo.ID && p.ID != promo.ID && ((p.PromotionStartDate.Before(promo.PromotionEndDate) || p.PromotionStartDate.Equal(promo.PromotionEndDate)) && (p.PromotionEndDate.After(promo.PromotionStartDate) || p.PromotionEndDate.Equal(promo.PromotionStartDate))) {
 			return echo.NewHTTPError(http.StatusConflict, "Duplicate promotion found")
 		}
 	}
@@ -109,7 +109,7 @@ func DeletePromotionByID(c echo.Context) error {
 
 	deletedIndex := -1
 	for i, p := range promotions {
-		if int(p.PromotionID) == promotion_id {
+		if int(p.ID) == promotion_id {
 			deletedIndex = i
 			break
 		}
