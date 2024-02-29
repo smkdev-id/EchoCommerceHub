@@ -6,34 +6,21 @@ import (
 	"gorm.io/gorm"
 )
 
-// type Promotion struct {
-// 	gorm.Model
-// 	PromotionID   uint      `gorm:"primarykey;not null" json:"promotion_id"`
-// 	Name          string    `gorm:"not null" json:"name"`
-// 	DiscountType  string    `gorm:"not null" json:"discount_type"`
-// 	DiscountValue float64   `gorm:"not null" json:"discount_value"`
-// 	StartDate     time.Time `gorm:"not null" json:"start_date"`
-// 	EndDate       time.Time `gorm:"not null" json:"end_date"`
-// }
-
 type Promotion struct {
 	gorm.Model
-	PromotionID uint   `gorm:"primarykey;column:promotion_id" json:"promotion_id"`
-	Name        string `gorm:"not null" binding:"required" json:"name"`
-	// DiscountType  DiscountType `gorm:"not null" binding:"required" json:"discount_type"`
-
-	DiscountType  string    `gorm:"not null" json:"discount_type"`
-	DiscountValue float64   `gorm:"not null" binding:"required" json:"discount_value"`
-	StartDate     time.Time `gorm:"not null" binding:"required" json:"start_date"`
-	EndDate       time.Time `gorm:"not null" binding:"required" json:"end_date"`
-	// DeletedAt     time.Time `gorm:"softdelete"`
+	ID                 uint           `gorm:"primarykey" json:"id"`
+	PromotionID        string         `gorm:"column:promotion_id" json:"promotion_id"`
+	PromotionName      string         `gorm:"not null" json:"promotion_name"`
+	DiscountType       string         `gorm:"not null" json:"discount_type"`
+	DiscountValue      float64        `gorm:"not null" json:"discount_value"`
+	PromotionStartDate time.Time      `gorm:"not null" json:"promotion_start_date"`
+	PromotionEndDate   time.Time      `gorm:"not null" json:"promotion_end_date"`
+	CreatedAt          time.Time      `gorm:"autoCreatedTime"`
+	UpdatedAt          time.Time      `gorm:"autoUpdateTime:mili"`
+	DeletedAt          gorm.DeletedAt `gorm:"index"`
+	// Update the binding for StartDate and EndData -> "not required" for now
 }
 
 func (Promotion) TableName() string {
 	return "promotion_table"
 }
-
-// // Disable Soft Deletes. Preventing deleted_at on schema
-// func (Promotion) DeleteOption(db *gorm.DB) *gorm.DB {
-// 	return db.Set("gorm:delete_option", "CASCADE")
-// }

@@ -17,8 +17,9 @@ func PromotionRoute(e *echo.Echo, PromoService services.PromotionService) {
 
 	e.GET("/", HelloServer)
 	e.GET("/promotions", handlers.PSQLGetAllPromotionData(PromoService))
-	e.GET("/promotions/:promotion_id", handlers.PSQLGetPromotionByID(PromoService))
-	e.POST("/promotions", handlers.PSQLCreatePromotionData(PromoService))
-	e.PUT("/promotions/:promotion_id", handlers.PSQLUpdatePromotionByID(PromoService))
-	e.DELETE("/promotions/:promotion_id", handlers.PSQLDeletePromotionByID(PromoService))
+	e.GET("/getpromotion/:id", handlers.PSQLGetPromotionByID(PromoService))
+	e.GET("/getpromotions/:promotion_id", handlers.PSQLGetPromotionByPromotionID(PromoService))
+	e.POST("/createpromotion", handlers.PSQLCreatePromotionData(PromoService))
+	e.PUT("/updatepromotion/:promotion_id", handlers.PSQLUpdatePromotionByPromotionID(PromoService))
+	e.DELETE("/deletepromotion/:promotion_id", handlers.PSQLDeletePromotionByPromotionID(PromoService))
 }

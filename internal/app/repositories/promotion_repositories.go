@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"time"
+	"errors"
 
 	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
 	"github.com/smkdev-id/promotion_tracking_dashboard/utils/exception"
@@ -10,11 +10,11 @@ import (
 
 type PromotionRepository interface {
 	CreatePromotion(promo models.Promotion) (models.Promotion, error)
-	FindPromotionByDateRange(promotionID uint, startDate, endDate time.Time) (*models.Promotion, error)
 	GetAllPromotions() ([]models.Promotion, error)
-	GetPromotionByID(promotionID uint) (models.Promotion, error)
+	GetPromotionByPromotionID(promotionID string) (models.Promotion, error)
+	GetPromotionByID(ID uint) (models.Promotion, error)
 	UpdatePromotion(promo models.Promotion) (models.Promotion, error)
-	DeletePromotionByID(promotionID uint) error
+	DeletePromotionByPromotionID(promotionID string) error
 }
 
 type PromotionRepositoryImpl struct {
@@ -30,58 +30,77 @@ func NewPromotionRepository(db *gorm.DB) PromotionRepository {
 
 // CreatePromotion creates a new promotion in the database
 func (r *PromotionRepositoryImpl) CreatePromotion(promo models.Promotion) (models.Promotion, error) {
-	err := r.db.Create(&promo).Error
+	err := r.db.Unscoped().Create(&promo).Error
 	return promo, err
 }
 
-// FindPromotionByDateRange finds a promotion by date range in the database
-func (r *PromotionRepositoryImpl) FindPromotionByDateRange(promotionID uint, startDate, endDate time.Time) (*models.Promotion, error) {
-	var promo models.Promotion
-	result := r.db.Where("promotion_id = ? AND start_date <= ? AND end_date >= ?", promotionID, startDate, endDate).First(&promo)
-	if result.Error != nil {
-		return nil, result.Error
-	}
-	return &promo, nil
-}
-
+// GetAllPromotions throw all data that recorded in the database
 func (r *PromotionRepositoryImpl) GetAllPromotions() ([]models.Promotion, error) {
 	var promotions []models.Promotion
-	if err := r.db.Debug().Find(&promotions).Error; err != nil {
+
+	// SELECT * FROM promotion_table
+	// WHERE promotion_table.deleted_at == NULL LIMIT 1
+
+	// Disable soft deletion with Unscoped() methods for now
+	if err := r.db.Debug().Unscoped().Find(&promotions).Error; err != nil {
 		return nil, err
 	}
 	return promotions, nil
 }
 
-func (r *PromotionRepositoryImpl) GetPromotionByID(promotionID uint) (models.Promotion, error) {
+// GetPromotionByID will throw data based on ID request
+func (r *PromotionRepositoryImpl) GetPromotionByID(ID uint) (models.Promotion, error) {
 	var promo models.Promotion
-	if err := r.db.First(&promo, promotionID).Error; err != nil {
+	if err := r.db.Unscoped().Where("id = ?", ID).Take(&promo).Error; err != nil {
+
+		// Handle case where record is not found
+		// For example, you can return a specific error indicating that the record is not found
 		return models.Promotion{}, err
 	}
 	return promo, nil
 }
 
+// GetPromotionByPromotionID will throw data based on promotionID request
+func (r *PromotionRepositoryImpl) GetPromotionByPromotionID(PromotionID string) (models.Promotion, error) {
+	var promo models.Promotion
+	if err := r.db.Unscoped().Where("promotion_id = ?", PromotionID).Take(&promo).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+
+			// Handle case where record is not found
+			// For example, you can return a specific error indicating that the record is not found
+			return models.Promotion{}, errors.New("promotion not found")
+		}
+		// Handle other errors
+		return models.Promotion{}, err
+	}
+	return promo, nil
+}
+
+// UpdatePromotion will update data based on promotionID request
 func (r *PromotionRepositoryImpl) UpdatePromotion(promo models.Promotion) (models.Promotion, error) {
+
 	// Assuming you have unique constraints on promotion_id and dates,
 	// you can perform the duplicate check before updating
 	var existingPromo models.Promotion
-	if err := r.db.Where("promotion_id = ? AND start_date <= ? AND end_date >= ? AND id != ?", promo.PromotionID, promo.StartDate, promo.EndDate, promo.ID).First(&existingPromo).Error; err != nil {
+	if err := r.db.Where("promotion_id = ?", promo.PromotionID).First(&existingPromo).Error; err != nil {
 		// Duplicate promotion found
 		return models.Promotion{}, err
 	}
 
 	// Update the promotion
-	if err := r.db.Save(&promo).Error; err != nil {
+	if err := r.db.Unscoped().Save(&promo).Error; err != nil {
 		return models.Promotion{}, err
 	}
 	return promo, nil
 }
 
-func (r *PromotionRepositoryImpl) DeletePromotionByID(promotionID uint) error {
-	if err := r.db.Delete(&models.Promotion{}, promotionID).Error; err != nil {
+// DeletePromotionByPromotionID will delete data based on promotionID request
+func (r *PromotionRepositoryImpl) DeletePromotionByPromotionID(promotionID string) error {
+	if err := r.db.Unscoped().Where("promotion_id = ?", promotionID).Delete(&models.Promotion{}).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return &exception.NotFoundError{
-				Message: "Promotion Not Found",
-				ID:      promotionID,
+			return &exception.PromotionIDNotFoundError{
+				Message:     "Promotion Not Found",
+				PromotionID: promotionID,
 			}
 		}
 		return err
