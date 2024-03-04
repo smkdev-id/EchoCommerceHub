@@ -14,10 +14,10 @@ import (
 type PromotionService interface {
 	CreatePromotion(promo models.Promotion) (models.Promotion, error)
 	GetAllPromotions() ([]models.Promotion, error)
-	GetPromotionByID(ID uint) (models.Promotion, error)
-	GetPromotionByPromotionID(promotionID string) (models.Promotion, error)
-	UpdatePromotion(promo models.Promotion) (models.Promotion, error)
-	DeletePromotionByPromotionID(promotionID string) error
+	// GetPromotionbyID(ID uint) (models.Promotion, error)
+	GetPromotionbyPromotionID(promotionID string) (models.Promotion, error)
+	UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error)
+	DeletePromotionbyPromotionID(promotionID string) error
 }
 
 type PromotionServiceImpl struct {
@@ -42,8 +42,8 @@ func (s *PromotionServiceImpl) GetAllPromotions() ([]models.Promotion, error) {
 }
 
 // GetPromotionByPromotionID will throw data based on promotionID request
-func (s *PromotionServiceImpl) GetPromotionByPromotionID(promotionID string) (models.Promotion, error) {
-	promo, err := s.PromotionRepo.GetPromotionByPromotionID(promotionID)
+func (s *PromotionServiceImpl) GetPromotionbyPromotionID(promotionID string) (models.Promotion, error) {
+	promo, err := s.PromotionRepo.GetPromotionbyPromotionID(promotionID)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return models.Promotion{}, &exception.PromotionIDNotFoundError{
@@ -57,24 +57,24 @@ func (s *PromotionServiceImpl) GetPromotionByPromotionID(promotionID string) (mo
 }
 
 // GetPromotionByID will throw data based on ID request
-func (s *PromotionServiceImpl) GetPromotionByID(ID uint) (models.Promotion, error) {
-	promo, err := s.PromotionRepo.GetPromotionByID(uint(ID))
-	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return models.Promotion{}, &exception.NotFoundError{
-				Message: "Promotion Not Found",
-				ID:      ID,
-			}
-		}
-		return models.Promotion{}, err
-	}
-	return promo, nil
-}
+// func (s *PromotionServiceImpl) GetPromotionbyID(ID uint) (models.Promotion, error) {
+// 	promo, err := s.PromotionRepo.GetPromotionbyID(uint(ID))
+// 	if err != nil {
+// 		if errors.Is(err, gorm.ErrRecordNotFound) {
+// 			return models.Promotion{}, &exception.NotFoundError{
+// 				Message: "Promotion Not Found",
+// 				ID:      ID,
+// 			}
+// 		}
+// 		return models.Promotion{}, err
+// 	}
+// 	return promo, nil
+// }
 
 // UpdatePromotion will update data based on promotionID request
-func (s *PromotionServiceImpl) UpdatePromotion(promo models.Promotion) (models.Promotion, error) {
+func (s *PromotionServiceImpl) UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error) {
 	// Perform duplicate check and update promotion
-	updatePromo, err := s.PromotionRepo.UpdatePromotion(promo)
+	updatePromo, err := s.PromotionRepo.UpdatePromotionbyPromotionID(promo)
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -89,6 +89,6 @@ func (s *PromotionServiceImpl) UpdatePromotion(promo models.Promotion) (models.P
 }
 
 // DeletePromotionByPromotionID will delete data based on promotionID request
-func (s *PromotionServiceImpl) DeletePromotionByPromotionID(promotionID string) error {
-	return s.PromotionRepo.DeletePromotionByPromotionID(promotionID)
+func (s *PromotionServiceImpl) DeletePromotionbyPromotionID(promotionID string) error {
+	return s.PromotionRepo.DeletePromotionbyPromotionID(promotionID)
 }

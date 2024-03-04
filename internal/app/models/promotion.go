@@ -8,7 +8,7 @@ import (
 
 type Promotion struct {
 	gorm.Model
-	ID                 uint           `gorm:"primarykey" json:"id"`
+	ID                 uint           `gorm:"primarykey"`
 	PromotionID        string         `gorm:"column:promotion_id" json:"promotion_id"`
 	PromotionName      string         `gorm:"not null" json:"promotion_name"`
 	DiscountType       string         `gorm:"not null" json:"discount_type"`
@@ -18,7 +18,6 @@ type Promotion struct {
 	CreatedAt          time.Time      `gorm:"autoCreatedTime"`
 	UpdatedAt          time.Time      `gorm:"autoUpdateTime:mili"`
 	DeletedAt          gorm.DeletedAt `gorm:"index"`
-	// Update the binding for StartDate and EndData -> "not required" for now
 }
 
 func (Promotion) TableName() string {
