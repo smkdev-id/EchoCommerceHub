@@ -11,10 +11,10 @@ import (
 type PromotionRepository interface {
 	CreatePromotion(promo models.Promotion) (models.Promotion, error)
 	GetAllPromotions() ([]models.Promotion, error)
-	GetPromotionByPromotionID(promotionID string) (models.Promotion, error)
-	GetPromotionByID(ID uint) (models.Promotion, error)
-	UpdatePromotion(promo models.Promotion) (models.Promotion, error)
-	DeletePromotionByPromotionID(promotionID string) error
+	GetPromotionbyPromotionID(promotionID string) (models.Promotion, error)
+	// GetPromotionbyID(ID uint) (models.Promotion, error)
+	UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error)
+	DeletePromotionbyPromotionID(promotionID string) error
 }
 
 type PromotionRepositoryImpl struct {
@@ -49,19 +49,19 @@ func (r *PromotionRepositoryImpl) GetAllPromotions() ([]models.Promotion, error)
 }
 
 // GetPromotionByID will throw data based on ID request
-func (r *PromotionRepositoryImpl) GetPromotionByID(ID uint) (models.Promotion, error) {
-	var promo models.Promotion
-	if err := r.db.Unscoped().Where("id = ?", ID).Take(&promo).Error; err != nil {
+// func (r *PromotionRepositoryImpl) GetPromotionbyID(ID uint) (models.Promotion, error) {
+// 	var promo models.Promotion
+// 	if err := r.db.Unscoped().Where("id = ?", ID).Take(&promo).Error; err != nil {
 
-		// Handle case where record is not found
-		// For example, you can return a specific error indicating that the record is not found
-		return models.Promotion{}, err
-	}
-	return promo, nil
-}
+// 		// Handle case where record is not found
+// 		// For example, you can return a specific error indicating that the record is not found
+// 		return models.Promotion{}, err
+// 	}
+// 	return promo, nil
+// }
 
 // GetPromotionByPromotionID will throw data based on promotionID request
-func (r *PromotionRepositoryImpl) GetPromotionByPromotionID(PromotionID string) (models.Promotion, error) {
+func (r *PromotionRepositoryImpl) GetPromotionbyPromotionID(PromotionID string) (models.Promotion, error) {
 	var promo models.Promotion
 	if err := r.db.Unscoped().Where("promotion_id = ?", PromotionID).Take(&promo).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -77,7 +77,7 @@ func (r *PromotionRepositoryImpl) GetPromotionByPromotionID(PromotionID string) 
 }
 
 // UpdatePromotion will update data based on promotionID request
-func (r *PromotionRepositoryImpl) UpdatePromotion(promo models.Promotion) (models.Promotion, error) {
+func (r *PromotionRepositoryImpl) UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error) {
 
 	// Assuming you have unique constraints on promotion_id and dates,
 	// you can perform the duplicate check before updating
@@ -95,7 +95,7 @@ func (r *PromotionRepositoryImpl) UpdatePromotion(promo models.Promotion) (model
 }
 
 // DeletePromotionByPromotionID will delete data based on promotionID request
-func (r *PromotionRepositoryImpl) DeletePromotionByPromotionID(promotionID string) error {
+func (r *PromotionRepositoryImpl) DeletePromotionbyPromotionID(promotionID string) error {
 	if err := r.db.Unscoped().Where("promotion_id = ?", promotionID).Delete(&models.Promotion{}).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return &exception.PromotionIDNotFoundError{

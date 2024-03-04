@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
@@ -36,32 +35,32 @@ func PSQLGetAllPromotionData(PromoService services.PromotionService) echo.Handle
 	}
 }
 
-func PSQLGetPromotionByID(PromoService services.PromotionService) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		id, err := strconv.Atoi(c.Param("id"))
-		if err != nil {
-			return echo.NewHTTPError(http.StatusBadRequest, "Invalid promotion ID")
-		}
+// func PSQLGetPromotionbyID(PromoService services.PromotionService) echo.HandlerFunc {
+// 	return func(c echo.Context) error {
+// 		id, err := strconv.Atoi(c.Param("id"))
+// 		if err != nil {
+// 			return echo.NewHTTPError(http.StatusBadRequest, "Invalid promotion ID")
+// 		}
 
-		promo, err := PromoService.GetPromotionByID(uint(id))
-		if err != nil {
+// 		promo, err := PromoService.GetPromotionbyID(uint(id))
+// 		if err != nil {
 
-			// ! Update the exception with the custom one. For now leave it there.
-			if e, ok := err.(*exception.NotFoundError); ok {
-				return echo.NewHTTPError(http.StatusNotFound, e.Error())
-			}
-			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to get promotion")
-		}
+// 			// ! Update the exception with the custom one. For now leave it there.
+// 			if e, ok := err.(*exception.NotFoundError); ok {
+// 				return echo.NewHTTPError(http.StatusNotFound, e.Error())
+// 			}
+// 			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to get promotion")
+// 		}
 
-		return c.JSON(http.StatusOK, promo)
-	}
-}
+// 		return c.JSON(http.StatusOK, promo)
+// 	}
+// }
 
-func PSQLGetPromotionByPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLGetPromotionbyPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		promotionID := c.Param("promotion_id")
 
-		promo, err := PromoService.GetPromotionByPromotionID(promotionID)
+		promo, err := PromoService.GetPromotionbyPromotionID(promotionID)
 		if err != nil {
 
 			// ! Update the exception with the custom one. For now leave it there.
@@ -75,12 +74,12 @@ func PSQLGetPromotionByPromotionID(PromoService services.PromotionService) echo.
 	}
 }
 
-func PSQLUpdatePromotionByPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLUpdatePromotionbyPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		promotionID := c.Param("promotion_id")
 
 		// TODO: check if promotion_id is exist
-		promo, err := PromoService.GetPromotionByPromotionID(promotionID)
+		promo, err := PromoService.GetPromotionbyPromotionID(promotionID)
 		if err != nil {
 			if e, ok := err.(*exception.PromotionIDNotFoundError); ok {
 				return echo.NewHTTPError(http.StatusNotFound, e.Error())
@@ -93,7 +92,7 @@ func PSQLUpdatePromotionByPromotionID(PromoService services.PromotionService) ec
 		}
 
 		// Update promotion
-		updatedPromo, err := PromoService.UpdatePromotion(promo)
+		updatedPromo, err := PromoService.UpdatePromotionbyPromotionID(promo)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to update promotion")
 		}
@@ -102,11 +101,11 @@ func PSQLUpdatePromotionByPromotionID(PromoService services.PromotionService) ec
 	}
 }
 
-func PSQLDeletePromotionByPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLDeletePromotionbyPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		promotionID := c.Param("promotion_id")
 
-		if err := PromoService.DeletePromotionByPromotionID(promotionID); err != nil {
+		if err := PromoService.DeletePromotionbyPromotionID(promotionID); err != nil {
 			if e, ok := err.(*exception.NotFoundError); ok {
 				return echo.NewHTTPError(http.StatusNotFound, e.Error())
 			}

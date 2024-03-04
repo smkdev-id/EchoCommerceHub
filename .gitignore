@@ -18,6 +18,7 @@
 # vendor/
 .github/
 .vscode/
+.idea/
 
 # Environment Variables
 env.yaml
