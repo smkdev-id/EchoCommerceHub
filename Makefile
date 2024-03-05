@@ -1,4 +1,4 @@
-all: promotion-tidy promotion-run promotion-tests promotion-tests-cover promotion-build-app
+all: promotion-tidy promotion-tests promotion-tests-cover promotion-build-app promotion-build-run
 
 promotion-tidy:
 	@go mod tidy
