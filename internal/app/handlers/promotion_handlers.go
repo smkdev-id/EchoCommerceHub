@@ -111,6 +111,6 @@ func PSQLDeletePromotionbyPromotionID(PromoService services.PromotionService) ec
 			}
 			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to delete promotion")
 		}
-		return c.JSON(http.StatusNoContent, "Promotion Data deleted successfully") // 204
+		return c.JSON(http.StatusNoContent, models.Promotion{}) // 204
 	}
 }

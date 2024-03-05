@@ -1,6 +1,8 @@
 package mocks
 
 import (
+	"time"
+
 	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
 	"github.com/stretchr/testify/mock"
 )
@@ -10,6 +12,10 @@ type MockPromotionRepository struct {
 }
 
 func (m *MockPromotionRepository) CreatePromotion(promo models.Promotion) (models.Promotion, error) {
+	promo.ID = 1
+	promo.CreatedAt = time.Now()
+	promo.UpdatedAt = time.Now()
+
 	args := m.Called(promo)
 	return args.Get(0).(models.Promotion), args.Error(1)
 }
