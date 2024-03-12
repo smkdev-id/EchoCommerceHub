@@ -18,6 +18,7 @@ func main() {
 
 	e := echo.New()
 
+	// Apps Architect
 	PromotionRepo := repositories.NewPromotionRepository(db)
 
 	PromoService := services.NewPromotionService(PromotionRepo)
