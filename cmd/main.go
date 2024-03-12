@@ -13,6 +13,7 @@ func main() {
 	// Initialize Environment Variables
 	configs.LoadViperEnv()
 
+	// Initialize PostgreSQL Conn
 	db := configs.InitDatabase()
 
 	e := echo.New()
