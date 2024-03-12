@@ -10,7 +10,6 @@ import (
 
 func main() {
 
-	// Initialize Environment Variables
 	configs.LoadViperEnv()
 
 	db := configs.InitDatabase()
