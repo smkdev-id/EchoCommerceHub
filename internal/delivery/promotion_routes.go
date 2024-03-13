@@ -5,8 +5,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/handlers"
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/services"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/handlers"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
 )
 
 func HelloServer(c echo.Context) error {

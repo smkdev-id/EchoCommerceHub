@@ -5,9 +5,9 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/repositories"
-	"github.com/smkdev-id/promotion_tracking_dashboard/utils/exception"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/repositories"
+	"smkdev-id/promotion_tracking_dashboard/utils/exception"
 )
 
 // PromotionService provides promotion-related services
