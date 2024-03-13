@@ -2,7 +2,7 @@ package configs
 
 import (
 	"github.com/jomei/notionapi"
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
 	"github.com/spf13/viper"
 )
 

@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/services"
-	"github.com/smkdev-id/promotion_tracking_dashboard/utils/exception"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
+	"smkdev-id/promotion_tracking_dashboard/utils/exception"
 )
 
 func PSQLCreatePromotionData(PromoService services.PromotionService) echo.HandlerFunc {

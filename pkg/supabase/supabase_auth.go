@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	supa "github.com/nedpals/supabase-go"
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/configs"
+	"smkdev-id/promotion_tracking_dashboard/internal/configs"
 	"github.com/spf13/viper"
 )
 

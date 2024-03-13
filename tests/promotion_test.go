@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/services"
-	"github.com/smkdev-id/promotion_tracking_dashboard/tests/mocks"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
+	"smkdev-id/promotion_tracking_dashboard/tests/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

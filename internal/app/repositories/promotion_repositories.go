@@ -3,8 +3,8 @@ package repositories
 import (
 	"errors"
 
-	"github.com/smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"github.com/smkdev-id/promotion_tracking_dashboard/utils/exception"
+	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
+	"smkdev-id/promotion_tracking_dashboard/utils/exception"
 	"gorm.io/gorm"
 )
 

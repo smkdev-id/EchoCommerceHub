@@ -1,4 +1,4 @@
-module github.com/smkdev-id/promotion_tracking_dashboard
+module smkdev-id/promotion_tracking_dashboard
 
 go 1.21.7
 
