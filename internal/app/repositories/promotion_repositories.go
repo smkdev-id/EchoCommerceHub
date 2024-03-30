@@ -5,6 +5,7 @@ import (
 
 	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
 	"smkdev-id/promotion_tracking_dashboard/utils/exception"
+
 	"gorm.io/gorm"
 )
 
@@ -12,7 +13,6 @@ type PromotionRepository interface {
 	CreatePromotion(promo models.Promotion) (models.Promotion, error)
 	GetAllPromotions() ([]models.Promotion, error)
 	GetPromotionbyPromotionID(promotionID string) (models.Promotion, error)
-	// GetPromotionbyID(ID uint) (models.Promotion, error)
 	UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error)
 	DeletePromotionbyPromotionID(promotionID string) error
 }
@@ -47,18 +47,6 @@ func (r *PromotionRepositoryImpl) GetAllPromotions() ([]models.Promotion, error)
 	}
 	return promotions, nil
 }
-
-// GetPromotionByID will throw data based on ID request
-// func (r *PromotionRepositoryImpl) GetPromotionbyID(ID uint) (models.Promotion, error) {
-// 	var promo models.Promotion
-// 	if err := r.db.Unscoped().Where("id = ?", ID).Take(&promo).Error; err != nil {
-
-// 		// Handle case where record is not found
-// 		// For example, you can return a specific error indicating that the record is not found
-// 		return models.Promotion{}, err
-// 	}
-// 	return promo, nil
-// }
 
 // GetPromotionByPromotionID will throw data based on promotionID request
 func (r *PromotionRepositoryImpl) GetPromotionbyPromotionID(PromotionID string) (models.Promotion, error) {

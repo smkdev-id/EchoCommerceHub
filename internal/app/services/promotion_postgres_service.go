@@ -1,20 +1,14 @@
 package services
 
 import (
-	"errors"
-
-	"gorm.io/gorm"
-
 	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
 	"smkdev-id/promotion_tracking_dashboard/internal/app/repositories"
-	"smkdev-id/promotion_tracking_dashboard/utils/exception"
 )
 
 // PromotionService provides promotion-related services
 type PromotionService interface {
 	CreatePromotion(promo models.Promotion) (models.Promotion, error)
 	GetAllPromotions() ([]models.Promotion, error)
-	// GetPromotionbyID(ID uint) (models.Promotion, error)
 	GetPromotionbyPromotionID(promotionID string) (models.Promotion, error)
 	UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error)
 	DeletePromotionbyPromotionID(promotionID string) error
@@ -45,31 +39,10 @@ func (s *PromotionServiceImpl) GetAllPromotions() ([]models.Promotion, error) {
 func (s *PromotionServiceImpl) GetPromotionbyPromotionID(promotionID string) (models.Promotion, error) {
 	promo, err := s.PromotionRepo.GetPromotionbyPromotionID(promotionID)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return models.Promotion{}, &exception.PromotionIDNotFoundError{
-				Message:     "Promotion Not Found",
-				PromotionID: promotionID,
-			}
-		}
 		return models.Promotion{}, err
 	}
 	return promo, nil
 }
-
-// GetPromotionByID will throw data based on ID request
-// func (s *PromotionServiceImpl) GetPromotionbyID(ID uint) (models.Promotion, error) {
-// 	promo, err := s.PromotionRepo.GetPromotionbyID(uint(ID))
-// 	if err != nil {
-// 		if errors.Is(err, gorm.ErrRecordNotFound) {
-// 			return models.Promotion{}, &exception.NotFoundError{
-// 				Message: "Promotion Not Found",
-// 				ID:      ID,
-// 			}
-// 		}
-// 		return models.Promotion{}, err
-// 	}
-// 	return promo, nil
-// }
 
 // UpdatePromotion will update data based on promotionID request
 func (s *PromotionServiceImpl) UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error) {
@@ -77,12 +50,6 @@ func (s *PromotionServiceImpl) UpdatePromotionbyPromotionID(promo models.Promoti
 	updatePromo, err := s.PromotionRepo.UpdatePromotionbyPromotionID(promo)
 
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return models.Promotion{}, &exception.PromotionIDNotFoundError{
-				Message:     "Duplicate Promotion Found",
-				PromotionID: promo.PromotionID,
-			}
-		}
 		return models.Promotion{}, err
 	}
 	return updatePromo, nil
