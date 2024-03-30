@@ -3,10 +3,11 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/labstack/echo/v4"
 	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
 	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
 	"smkdev-id/promotion_tracking_dashboard/utils/exception"
+
+	"github.com/labstack/echo/v4"
 )
 
 func PSQLCreatePromotionData(PromoService services.PromotionService) echo.HandlerFunc {
@@ -34,27 +35,6 @@ func PSQLGetAllPromotionData(PromoService services.PromotionService) echo.Handle
 		return c.JSON(http.StatusOK, promotions)
 	}
 }
-
-// func PSQLGetPromotionbyID(PromoService services.PromotionService) echo.HandlerFunc {
-// 	return func(c echo.Context) error {
-// 		id, err := strconv.Atoi(c.Param("id"))
-// 		if err != nil {
-// 			return echo.NewHTTPError(http.StatusBadRequest, "Invalid promotion ID")
-// 		}
-
-// 		promo, err := PromoService.GetPromotionbyID(uint(id))
-// 		if err != nil {
-
-// 			// ! Update the exception with the custom one. For now leave it there.
-// 			if e, ok := err.(*exception.NotFoundError); ok {
-// 				return echo.NewHTTPError(http.StatusNotFound, e.Error())
-// 			}
-// 			return echo.NewHTTPError(http.StatusInternalServerError, "Failed to get promotion")
-// 		}
-
-// 		return c.JSON(http.StatusOK, promo)
-// 	}
-// }
 
 func PSQLGetPromotionbyPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {

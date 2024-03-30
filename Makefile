@@ -13,7 +13,7 @@ promotion-tests-cover:
 	@go tool cover -html=api/result_tests.cov
 
 promotion-build-app:
-	@go build -o api/promotion-app cmd/main.go
+	@go build -o bin/promotion-app cmd/main.go
 
 promotion-build-run:
-	@ ./api/promotion-app
+	@ ./bin/promotion-app
