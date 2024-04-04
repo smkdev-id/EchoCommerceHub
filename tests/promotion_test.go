@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	models "smkdevid/echocommercehub/internal/models/schema"
+	schema "smkdevid/echocommercehub/internal/models/schema"
 	"smkdevid/echocommercehub/internal/services/promotions"
 	"smkdevid/echocommercehub/tests/mocks"
 
@@ -22,7 +22,7 @@ func TestCreatePromotion(t *testing.T) {
 				PromotionRepo: mockPromotionRepo,
 			})
 
-		expectedPromotion := models.Promotion{
+		expectedPromotion := schema.Promotion{
 			PromotionID:        "cae8651b",
 			PromotionName:      "Ramadhan Sale",
 			DiscountType:       "percentage",
@@ -31,7 +31,7 @@ func TestCreatePromotion(t *testing.T) {
 			PromotionEndDate:   time.Now().Add(24 * time.Hour),
 		}
 
-		mockPromotionRepo.On("CreatePromotion", mock.AnythingOfType("models.Promotion")).Return(expectedPromotion, nil)
+		mockPromotionRepo.On("CreatePromotion", mock.AnythingOfType("schema.Promotion")).Return(expectedPromotion, nil)
 
 		results, err := userService.CreatePromotion(expectedPromotion)
 		assert.NoError(t, err)
@@ -48,7 +48,7 @@ func TestCreatePromotion(t *testing.T) {
 				PromotionRepo: mockPromotionRepo,
 			})
 
-		expectedPromotion := models.Promotion{
+		expectedPromotion := schema.Promotion{
 			PromotionID:        "cae8651b",
 			PromotionName:      "Ramadhan Sale",
 			DiscountType:       "percentage",
@@ -58,7 +58,7 @@ func TestCreatePromotion(t *testing.T) {
 		}
 
 		expectedErr := errors.New("failed to create promotion")
-		mockPromotionRepo.On("CreatePromotion", mock.AnythingOfType("models.Promotion")).Return(models.Promotion{}, expectedErr)
+		mockPromotionRepo.On("CreatePromotion", mock.AnythingOfType("schema.Promotion")).Return(schema.Promotion{}, expectedErr)
 
 		results, err := userService.CreatePromotion(expectedPromotion)
 		assert.Error(t, expectedErr)
@@ -78,7 +78,7 @@ func TestPSQLGetAllPromotionData(t *testing.T) {
 				PromotionRepo: mockPromotionRepo,
 			})
 
-		expectedPromotion := []models.Promotion{
+		expectedPromotion := []schema.Promotion{
 			{
 				PromotionID:        "cae8651b",
 				PromotionName:      "Ramadhan Sale",
@@ -108,7 +108,7 @@ func TestPSQLGetAllPromotionData(t *testing.T) {
 			})
 
 		expectedErr := errors.New("Failed to Get Promotions")
-		mockPromotionRepo.On("GetAllPromotions").Return([]models.Promotion{}, expectedErr)
+		mockPromotionRepo.On("GetAllPromotions").Return([]schema.Promotion{}, expectedErr)
 
 		results, err := userService.GetAllPromotions()
 
@@ -131,7 +131,7 @@ func TestPSQLGetPromotionbyPromotionID(t *testing.T) {
 				PromotionRepo: mockPromotionRepo,
 			})
 
-		expectedPromotion := models.Promotion{
+		expectedPromotion := schema.Promotion{
 			PromotionID:        "cae8651b",
 			PromotionName:      "Ramadhan Sale",
 			DiscountType:       "percentage",
@@ -158,7 +158,7 @@ func TestPSQLGetPromotionbyPromotionID(t *testing.T) {
 			})
 
 		expectedErr := errors.New("Promotion not Found")
-		mockPromotionRepo.On("GetPromotionbyPromotionID", "cb7360g6").Return(models.Promotion{}, expectedErr)
+		mockPromotionRepo.On("GetPromotionbyPromotionID", "cb7360g6").Return(schema.Promotion{}, expectedErr)
 
 		results, err := userService.GetPromotionbyPromotionID("cb7360g6")
 
@@ -181,7 +181,7 @@ func TestPSQLUpdatePromotionbyPromotionID(t *testing.T) {
 				PromotionRepo: mockPromotionRepo,
 			})
 
-		existingPromo := models.Promotion{
+		existingPromo := schema.Promotion{
 			PromotionID:        "cae8651b",
 			PromotionName:      "Ramadhan Sale",
 			DiscountType:       "percentage",
@@ -213,7 +213,7 @@ func TestPSQLUpdatePromotionbyPromotionID(t *testing.T) {
 				PromotionRepo: mockPromotionRepo,
 			})
 
-		existingPromo := models.Promotion{
+		existingPromo := schema.Promotion{
 			PromotionID:        "cae8651b",
 			PromotionName:      "Ramadhan Sale",
 			DiscountType:       "percentage",
@@ -228,7 +228,7 @@ func TestPSQLUpdatePromotionbyPromotionID(t *testing.T) {
 		updatedPromo.DiscountValue = 15.0
 
 		expectedErr := errors.New("Failed to Update Promotion")
-		mockPromotionRepo.On("UpdatePromotionbyPromotionID", updatedPromo).Return(models.Promotion{}, expectedErr)
+		mockPromotionRepo.On("UpdatePromotionbyPromotionID", updatedPromo).Return(schema.Promotion{}, expectedErr)
 
 		results, err := userService.UpdatePromotionbyPromotionID(updatedPromo)
 		assert.Error(t, err)
