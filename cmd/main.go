@@ -1,11 +1,12 @@
 package main
 
 import (
+	"smkdevid/echocommercehub/internal/configs"
+	postgresql "smkdevid/echocommercehub/internal/databases/postgresql"
+	"smkdevid/echocommercehub/internal/services/promotions"
+	"smkdevid/echocommercehub/internal/transports/delivery"
+
 	"github.com/labstack/echo/v4"
-	"smkdev-id/promotion_tracking_dashboard/internal/app/repositories"
-	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
-	"smkdev-id/promotion_tracking_dashboard/internal/configs"
-	"smkdev-id/promotion_tracking_dashboard/internal/delivery"
 )
 
 func main() {
@@ -19,9 +20,9 @@ func main() {
 	e := echo.New()
 
 	// Apps Architect
-	PromotionRepo := repositories.NewPromotionRepository(db)
+	PromotionRepo := postgresql.NewPromotionRepository(db)
 
-	PromoService := services.NewPromotionService(PromotionRepo)
+	PromoService := promotions.NewPromotionService(PromotionRepo)
 
 	delivery.PromotionRoute(e, PromoService)
 

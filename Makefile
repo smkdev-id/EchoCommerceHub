@@ -1,19 +1,23 @@
-all: promotion-tidy promotion-tests promotion-tests-cover promotion-build-app promotion-build-run
+all: clean tidy test test-cover build-app build-run
 
-promotion-tidy:
+tidy:
 	@go mod tidy
 
-promotion-run:
+run:
 	@go run cmd/main.go
 
-promotion-tests:
-	@go test tests/promotion_test.go -coverpkg=./internal/app/services -coverprofile=api/result_tests.cov && go tool cover -func api/result_tests.cov
+clean:
+	@echo "make clean 🧽"
+	@rm -rf /tmp/* 2> /dev/null
 
-promotion-tests-cover:
+test:
+	@go test tests/promotion_test.go -coverpkg=./internal/services/promotions -coverprofile=api/result_tests.cov && go tool cover -func api/result_tests.cov
+
+test-cover:
 	@go tool cover -html=api/result_tests.cov
 
-promotion-build-app:
+build-app:
 	@go build -o bin/promotion-app cmd/main.go
 
-promotion-build-run:
+build-run:
 	@ ./bin/promotion-app
