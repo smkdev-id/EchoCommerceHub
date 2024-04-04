@@ -3,7 +3,8 @@ package mocks
 import (
 	"time"
 
-	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
+	models "smkdevid/echocommercehub/internal/models/schema"
+
 	"github.com/stretchr/testify/mock"
 )
 

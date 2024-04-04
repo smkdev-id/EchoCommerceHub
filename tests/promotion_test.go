@@ -5,9 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
-	"smkdev-id/promotion_tracking_dashboard/tests/mocks"
+	models "smkdevid/echocommercehub/internal/models/schema"
+	"smkdevid/echocommercehub/internal/services/promotions"
+	"smkdevid/echocommercehub/tests/mocks"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -16,8 +17,8 @@ func TestCreatePromotion(t *testing.T) {
 	t.Run("Successful Promotion Created", func(t *testing.T) {
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -42,8 +43,8 @@ func TestCreatePromotion(t *testing.T) {
 	t.Run("Error on Promotion Creation", func(t *testing.T) {
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -72,8 +73,8 @@ func TestPSQLGetAllPromotionData(t *testing.T) {
 		// Set up mocks
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -101,8 +102,8 @@ func TestPSQLGetAllPromotionData(t *testing.T) {
 		// Set up mocks
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -125,8 +126,8 @@ func TestPSQLGetPromotionbyPromotionID(t *testing.T) {
 		// Set up mocks
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -151,8 +152,8 @@ func TestPSQLGetPromotionbyPromotionID(t *testing.T) {
 	t.Run("Promotion not found", func(t *testing.T) {
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -175,8 +176,8 @@ func TestPSQLUpdatePromotionbyPromotionID(t *testing.T) {
 		// Set up mocks
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -207,8 +208,8 @@ func TestPSQLUpdatePromotionbyPromotionID(t *testing.T) {
 		// ... (set up mocks for error case)
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -243,8 +244,8 @@ func TestPSQLDeletePromotionbyPromotionID(t *testing.T) {
 		// Set up mocks
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
@@ -260,8 +261,8 @@ func TestPSQLDeletePromotionbyPromotionID(t *testing.T) {
 		// Set up mocks
 		mockPromotionRepo := new(mocks.MockPromotionRepository)
 
-		userService := services.NewPromotionService(
-			&services.PromotionServiceImpl{
+		userService := promotions.NewPromotionService(
+			&promotions.PromotionServiceImpl{
 				PromotionRepo: mockPromotionRepo,
 			})
 
