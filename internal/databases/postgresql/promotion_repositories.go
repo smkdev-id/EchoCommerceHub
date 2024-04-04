@@ -1,10 +1,10 @@
-package repositories
+package database
 
 import (
 	"errors"
 
-	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"smkdev-id/promotion_tracking_dashboard/utils/exception"
+	models "smkdevid/echocommercehub/internal/models/schema"
+	"smkdevid/echocommercehub/utils/exception"
 
 	"gorm.io/gorm"
 )

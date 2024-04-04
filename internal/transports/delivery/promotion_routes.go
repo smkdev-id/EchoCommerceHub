@@ -3,17 +3,17 @@ package delivery
 import (
 	"net/http"
 
-	"github.com/labstack/echo/v4"
+	"smkdevid/echocommercehub/internal/app/handlers"
+	"smkdevid/echocommercehub/internal/services/promotions"
 
-	"smkdev-id/promotion_tracking_dashboard/internal/app/handlers"
-	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
+	"github.com/labstack/echo/v4"
 )
 
 func HelloServer(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
 
-func PromotionRoute(e *echo.Echo, PromoService services.PromotionService) {
+func PromotionRoute(e *echo.Echo, PromoService promotions.PromotionService) {
 
 	e.GET("/", HelloServer)
 	e.GET("/promotions", handlers.PSQLGetAllPromotionData(PromoService))
