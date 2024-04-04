@@ -1,7 +1,8 @@
 package mocks
 
 import (
-	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
+	schema "smkdevid/echocommercehub/internal/models/schema"
+
 	"github.com/stretchr/testify/mock"
 )
 
@@ -9,30 +10,30 @@ type MockPromotionService struct {
 	mock.Mock
 }
 
-func (m *MockPromotionService) CreatePromotion(promo models.Promotion) (models.Promotion, error) {
+func (m *MockPromotionService) CreatePromotion(promo schema.Promotion) (schema.Promotion, error) {
 	args := m.Called(promo)
-	return args.Get(0).(models.Promotion), args.Error(1)
+	return args.Get(0).(schema.Promotion), args.Error(1)
 }
 
-func (m *MockPromotionService) GetAllPromotions() ([]models.Promotion, error) {
+func (m *MockPromotionService) GetAllPromotions() ([]schema.Promotion, error) {
 	args := m.Called()
-	return args.Get(0).([]models.Promotion), args.Error(1)
+	return args.Get(0).([]schema.Promotion), args.Error(1)
 }
 
-func (m *MockPromotionService) GetPromotionbyPromotionID(promotionID string) (models.Promotion, error) {
+func (m *MockPromotionService) GetPromotionbyPromotionID(promotionID string) (schema.Promotion, error) {
 	args := m.Called(promotionID)
 	if result := args.Get(0); result != nil {
-		return result.(models.Promotion), nil
+		return result.(schema.Promotion), nil
 	}
-	return models.Promotion{}, args.Error(1)
+	return schema.Promotion{}, args.Error(1)
 }
 
-func (m *MockPromotionService) UpdatePromotionbyPromotionID(promo models.Promotion) (models.Promotion, error) {
+func (m *MockPromotionService) UpdatePromotionbyPromotionID(promo schema.Promotion) (schema.Promotion, error) {
 	args := m.Called(promo)
 	if result := args.Get(0); result != nil {
-		return result.(models.Promotion), nil
+		return result.(schema.Promotion), nil
 	}
-	return models.Promotion{}, args.Error(1)
+	return schema.Promotion{}, args.Error(1)
 }
 
 func (m *MockPromotionService) DeletePromotionbyPromotionID(promotionID string) error {
