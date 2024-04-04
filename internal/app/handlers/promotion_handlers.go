@@ -3,14 +3,14 @@ package handlers
 import (
 	"net/http"
 
-	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"smkdev-id/promotion_tracking_dashboard/internal/app/services"
-	"smkdev-id/promotion_tracking_dashboard/utils/exception"
+	models "smkdevid/echocommercehub/internal/models/schema"
+	"smkdevid/echocommercehub/internal/services/promotions"
+	"smkdevid/echocommercehub/utils/exception"
 
 	"github.com/labstack/echo/v4"
 )
 
-func PSQLCreatePromotionData(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLCreatePromotionData(PromoService promotions.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var promo models.Promotion
 		if err := c.Bind(&promo); err != nil {
@@ -26,7 +26,7 @@ func PSQLCreatePromotionData(PromoService services.PromotionService) echo.Handle
 	}
 }
 
-func PSQLGetAllPromotionData(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLGetAllPromotionData(PromoService promotions.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		promotions, err := PromoService.GetAllPromotions()
 		if err != nil {
@@ -36,7 +36,7 @@ func PSQLGetAllPromotionData(PromoService services.PromotionService) echo.Handle
 	}
 }
 
-func PSQLGetPromotionbyPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLGetPromotionbyPromotionID(PromoService promotions.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		promotionID := c.Param("promotion_id")
 
@@ -54,7 +54,7 @@ func PSQLGetPromotionbyPromotionID(PromoService services.PromotionService) echo.
 	}
 }
 
-func PSQLUpdatePromotionbyPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLUpdatePromotionbyPromotionID(PromoService promotions.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		promotionID := c.Param("promotion_id")
 
@@ -81,7 +81,7 @@ func PSQLUpdatePromotionbyPromotionID(PromoService services.PromotionService) ec
 	}
 }
 
-func PSQLDeletePromotionbyPromotionID(PromoService services.PromotionService) echo.HandlerFunc {
+func PSQLDeletePromotionbyPromotionID(PromoService promotions.PromotionService) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		promotionID := c.Param("promotion_id")
 

@@ -1,8 +1,8 @@
-package services
+package promotions
 
 import (
-	"smkdev-id/promotion_tracking_dashboard/internal/app/models"
-	"smkdev-id/promotion_tracking_dashboard/internal/app/repositories"
+	postgresql "smkdevid/echocommercehub/internal/databases/postgresql"
+	models "smkdevid/echocommercehub/internal/models/schema"
 )
 
 // PromotionService provides promotion-related services
@@ -15,11 +15,11 @@ type PromotionService interface {
 }
 
 type PromotionServiceImpl struct {
-	PromotionRepo repositories.PromotionRepository
+	PromotionRepo postgresql.PromotionRepository
 }
 
 // NewPromotionService creates a new instance of PromotionService
-func NewPromotionService(PromotionRepo repositories.PromotionRepository) *PromotionServiceImpl {
+func NewPromotionService(PromotionRepo postgresql.PromotionRepository) *PromotionServiceImpl {
 	return &PromotionServiceImpl{
 		PromotionRepo: PromotionRepo,
 	}
