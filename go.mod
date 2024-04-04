@@ -1,4 +1,4 @@
-module smkdev-id/promotion_tracking_dashboard
+module smkdevid/echocommercehub
 
 go 1.21.7
 

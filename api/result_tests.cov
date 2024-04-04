@@ -1,11 +1,11 @@
 mode: set
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:22.96,26.2 1 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:29.98,31.2 1 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:34.79,36.2 1 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:39.104,41.16 2 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:41.16,49.3 1 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:50.2,50.19 1 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:54.111,58.16 2 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:58.16,66.3 1 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:67.2,67.25 1 1
-smkdev-id/promotion_tracking_dashboard/internal/app/services/promotion_postgres_service.go:71.87,73.2 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:22.94,26.2 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:29.98,31.2 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:34.79,36.2 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:39.104,41.16 2 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:41.16,43.3 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:44.2,44.19 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:48.111,52.16 2 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:52.16,54.3 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:55.2,55.25 1 1
+smkdevid/echocommercehub/internal/services/promotions/promotion_service.go:59.87,61.2 1 1

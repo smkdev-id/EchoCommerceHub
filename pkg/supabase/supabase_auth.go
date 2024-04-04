@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	"smkdevid/echocommercehub/internal/configs"
+
 	supa "github.com/nedpals/supabase-go"
-	"smkdev-id/promotion_tracking_dashboard/internal/configs"
 	"github.com/spf13/viper"
 )
 
