@@ -4,7 +4,7 @@
 </div>
 
 
-Postman API Documentations: https://documenter.getpostman.com/view/33035417/2sA2r81PZF
+Postman API Documentations: [EchoCommerceHub](https://www.postman.com/smkdev/workspace/echocommercehub/collection/33035417-4e8cd745-be76-4a44-bde7-f85b1f59bd49?action=share&creator=33035417)
 
 ## Key Features
 
@@ -43,10 +43,7 @@ Postman API Documentations: https://documenter.getpostman.com/view/33035417/2sA2
     - **Data from third-party services**: Integrate with external services such as payment gateways, shipping carriers, and inventory management systems to exchange data and automate processes.
     - **API data**: Handle data exchanged with external APIs for features like geolocation, currency conversion, or real-time shipping rates.
 
-9. **Face Recognition Implementation**
 
-10. **Notion Automation Report**
-    
 Handling these diverse types of data effectively requires careful planning of database schema, data models, and data storage mechanisms. Additionally, implementing robust data validation, security measures, and compliance with data protection regulations (e.g., GDPR) is crucial to ensure data integrity, confidentiality, and regulatory compliance.
 
 
