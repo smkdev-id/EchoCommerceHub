@@ -24,16 +24,16 @@ func (Promotion) TableName() string {
 	return "promotion_table"
 }
 
-type Products struct {
-	gorm.Model
-	ProductID          string
-	ProductName        string
-	ProductDescription string
-	ProductPrice       string
-	ProductStock       uint
-	ProductImage       string
-	ProductCategory    Categories
-}
+// type Products struct {
+// 	gorm.Model
+// 	ProductID          string
+// 	ProductName        string
+// 	ProductDescription string
+// 	ProductPrice       string
+// 	ProductStock       uint
+// 	ProductImage       string
+// 	ProductCategory    Categories
+// }
 
 // type ProductVariants struct {
 // 	VariantID    string
@@ -43,11 +43,11 @@ type Products struct {
 // 	ProductStock string
 // }
 
-type Categories struct {
-	gorm.Model
-	CategoryID   string
-	CategoryName string
-}
+// type Categories struct {
+// 	gorm.Model
+// 	CategoryID   string
+// 	CategoryName string
+// }
 
 // type Users struct {
 // 	UserID           string

@@ -1,4 +1,4 @@
-all: clean tidy test test-cover build-app build-run
+all: tidy test test-cover build-app build-run
 
 tidy:
 	@go mod tidy
