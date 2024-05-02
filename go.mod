@@ -8,6 +8,7 @@ require (
 	github.com/nedpals/supabase-go v0.4.0
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.9.0
+	gocv.io/x/gocv v0.36.1
 	gorm.io/driver/postgres v1.5.6
 	gorm.io/gorm v1.25.7
 )
@@ -42,7 +43,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	gocv.io/x/gocv v0.36.1 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
 	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225 // indirect
 	golang.org/x/net v0.23.0 // indirect
